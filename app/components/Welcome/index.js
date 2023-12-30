@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUI } from 'Actions';
-import colors from 'API/ui';
+import { setUI } from '@/redux/actions';
+import colors from '@/api/ui';
 
 function Welcome() {
   const dispatch = useDispatch();

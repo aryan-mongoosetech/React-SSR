@@ -1,21 +1,9 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import i18next from 'i18next';
 import { Helmet } from 'react-helmet';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { withTranslation } from 'react-i18next';
-import { Welcome } from 'Components';
-import { setNotif } from 'Actions';
+import { Welcome } from '@/components';
 
-function Landing(props) {
-  const { t } = props;
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setNotif({ message: t('MSG001'), variant: 'success' }));
-  }, []);
-
+function Landing() {
   return (
     <Fragment>
       <Helmet>
@@ -27,8 +15,4 @@ function Landing(props) {
   );
 }
 
-Landing.propTypes = {
-  t: PropTypes.func.isRequired,
-};
-
-export default withTranslation()(Landing);
+export default Landing;

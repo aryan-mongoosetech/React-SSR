@@ -1,15 +1,18 @@
 'use strict';
 
+require('dotenv').config();
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: path.resolve(__dirname, '../app'),
   output: {
-    path: path.resolve(__dirname, '../build'),
+    path: path.resolve(__dirname, '../tempDist'),
     filename: '[name].[chunkhash].js',
     publicPath: '/',
   },
@@ -26,6 +29,12 @@ module.exports = {
     new CopyPlugin({
       patterns: [{ from: 'public' }],
     }),
+    new ESLintPlugin(),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+      Buffer: ['buffer', 'Buffer'],
+    }),
+    new Dotenv(),
   ],
   module: {
     rules: [
@@ -57,22 +66,17 @@ module.exports = {
     },
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    fallback: {},
     alias: {
-      API: path.resolve(__dirname, '../app/api/'),
-      Actions: path.resolve(__dirname, '../app/redux/actions/'),
-      Contexts: path.resolve(__dirname, '../app/contexts/'),
-      Components: path.resolve(__dirname, '../app/components/'),
-      Containers: path.resolve(__dirname, '../app/containers/'),
-      Utils: path.resolve(__dirname, '../app/utils/'),
-      Helpers: path.resolve(__dirname, '../app/helpers/'),
+      '@': path.resolve(__dirname, '../app/'),
     },
   },
   devServer: {
     open: true,
     static: path.resolve(__dirname, '../public'),
     compress: true,
-    port: 3000,
+    port: process.env.PORT || 3000,
     historyApiFallback: true,
   },
 };

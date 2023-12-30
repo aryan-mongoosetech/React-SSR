@@ -1,4 +1,4 @@
-import { SET_UI } from 'Actions/actionConstants';
+import { SET_UI } from '@/redux/actions/actionConstants';
 
 const initialState = {
   color: 'red',
