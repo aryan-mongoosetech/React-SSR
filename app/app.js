@@ -8,6 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 import createReducer from './redux/reducers';
 import rootSaga from './redux/rootSaga';
 import { Landing, NotFound } from './containers/pageListAsync';
+import Home from './components/Home';
 
 const sagaMiddleware = createSagaMiddleware();
 const reducer = createReducer();
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/*" element={<NotFound />} />
+          <Route path="/home" element={<Home />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer
